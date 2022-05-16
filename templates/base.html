@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Open Art Staff Tools</title>
+        <!-- Import the component -->
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+        <!-- Include from the CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            clifford: '#da373d',
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        {# background: url('{% static "emulator" %}/main_bg.png') center center no-repeat #}
+        <div class="p-10 bg-black w-full h-screen" style="background: url('{% static "emulator" %}/main_bg.png') center center no-repeat" >
+            {% if display_video %}
+            <video id="videoRender" class="w-full h-full" {{ video_attrs }} preload="metadata">
+                <source src="{{ path }}{{ file_name }}#t=15,20" type="video/mp4" />
+            </video>
+            {% else %}
+
+            <model-viewer class=" w-full h-full" id="viewerContainer"
+                alt="NFT Demo"
+                loading="eager"
+                src="{{ path }}{{ file_name }}"
+                minimumRenderScale="1"
+                ar ar-modes="webxr scene-viewer quick-look"
+                ar-status="not-presenting"
+                max-field-of-view="180deg"
+                min-field-of-view="0deg"
+                camera-orbit="{{ camera_orbit }}"
+                exposure="1"
+                          auto-rotate="true" autoplay="true" camera-controls
+
+                environment-image="{% static 'bg_space' %}/{{ bg_space }}"
+                seamless-poster shadow-intensity="1"
+                ></model-viewer>
+            {% endif %}
+
+            {% if display_video %}
+                <script>
+                    const videoCurrentTime = parseFloat('{{ video_current_time }}');
+                    document.getElementById('videoRender').addEventListener('loadedmetadata', function(videoCurrentTime) {
+                      this.currentTime = 2.7;
+                    }, false);
+                </script>
+            {% endif %}
+            {#  Docs https://klausw.github.io/model-viewer/index.html #}
+            {# camera-orbit="25deg 90deg 0deg" #}
+            {# rotation-per-second="-10deg" #}
+            {# auto-rotate="true" autoplay="true" camera-controls #}
+            {# auto-rotate="true" autoplay="true" camera-controls #}
+            {# has-baked-shadow="true" #}
+            {# camera-target="0m -.5m -0.5m" #}
+            {# camera-controls #}
+            {# skybox-image="{% static 'bg_space' %}/{{ bg_space }}"  #}
+            {# poster="{% static 'bg_space' %}/{{ bg_space }}" #}
+        </div>
+    </body>
+</html>
