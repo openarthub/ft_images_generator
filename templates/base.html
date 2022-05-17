@@ -23,7 +23,8 @@
     </head>
     <body>
         {# background: url('{% static "emulator" %}/main_bg.png') center center no-repeat #}
-        <div class="p-10 bg-black w-full h-screen" style="background: url('{% static "emulator" %}/main_bg.png') center center no-repeat" >
+        {# background: url('{% static "emulator" %}/fondo_blanco.png' #}
+        <div class="p-0 bg-black w-full h-screen" style="background: url('{% static "emulator" %}/main_bg.png') center center no-repeat #000" >
             {% if display_video %}
             <video id="videoRender" class="w-full h-full" {{ video_attrs }} preload="metadata">
                 <source src="{{ path }}{{ file_name }}#t=15,20" type="video/mp4" />
@@ -41,8 +42,6 @@
                 min-field-of-view="0deg"
                 camera-orbit="{{ camera_orbit }}"
                 exposure="1"
-                          auto-rotate="true" autoplay="true" camera-controls
-
                 environment-image="{% static 'bg_space' %}/{{ bg_space }}"
                 seamless-poster shadow-intensity="1"
                 ></model-viewer>

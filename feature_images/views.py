@@ -24,13 +24,25 @@ def ft_images_creator(request):
     item_folder_name = {
         "ring": "Anillo",
         "anillo": "Anillo",
-        "pipe": "Pipa",
-        "pipa": "Pipa",
-        "carpeta": "Carpeta",
-        "business_folder": "Carpeta",
-        "folder": "Carpeta",
-        "maletin": "Maletin",
-        "briefcase": "Maletin",
+        "pipe": "pipa",
+        "pipa": "pipa",
+        "carpeta": "carpeta",
+        "business_folder": "carpeta",
+        "folder": "carpeta",
+        "maletin": "maletin",
+        "briefcase": "maletin",
+    }.get(item.lower(), "")
+
+    item_file_name = {
+        "ring": "Anillo",
+        "anillo": "Anillo",
+        "pipe": "Pipe",
+        "pipa": "Pipe",
+        "carpeta": "Folder",
+        "business_folder": "Folder",
+        "folder": "Folder",
+        "maletin": "Briefcase",
+        "briefcase": "Briefcase",
     }.get(item.lower(), "")
 
     metal_folder_name = {
@@ -38,6 +50,7 @@ def ft_images_creator(request):
         "oro": "oro",
         "plate": "plata",
         "silver": "plata",
+        "plata": "plata",
         "bronce": "bronce",
         "bronze": "bronce"
     }.get(metal.lower(), "")
@@ -46,6 +59,7 @@ def ft_images_creator(request):
         "gold": "Gold",
         "oro": "Gold",
         "plate": "Silver",
+        "plata": "Silver",
         "silver": "Silver",
         "bronce": "Bronze",
         "bronze": "Bronze"
@@ -54,16 +68,16 @@ def ft_images_creator(request):
     data_context = {
         "card3D": {
             "path": f"{settings.STATIC_URL}Releasing/{item_folder_name}/{model_folder_name}/{metal_folder_name}/",
-            "file_name": f"{selected_model}{item.title()}{metal_file_name}{item_number}.glb",
+            "file_name": f"{selected_model}{item_file_name}{metal_file_name}{item_number}.glb",
             "display_video": False,
-            "bg_space": f"{selected_model}{item.title()}_{metal_folder_name}.jpeg",
+            "bg_space": f"{selected_model}{item_file_name}_{metal_folder_name}.jpeg",
             "camera_orbit": "25deg 90deg 0deg"
         },
         "3d_object": {
             "path": f"{settings.STATIC_URL}Releasing/{item_folder_name}/{model_folder_name}/{metal_folder_name}/",
-            "file_name": f"comp{item.title()}{metal_file_name}{item_number}.glb",
+            "file_name": f"comp{item_file_name}{metal_file_name}{item_number}.glb",
             "display_video": False,
-            "bg_space": f"pexels-pixabay-258045.jpeg",
+            "bg_space": f"{selected_model}{item_file_name}_{metal_folder_name}.jpeg",  # f"pexels-rotekirsche-5438690.jpeg",
             "camera_orbit": "-30deg 90deg 0deg"
         },
         "360_video": {
